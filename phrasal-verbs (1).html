@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phrasal Verbs en uso racional</title>
+<style>
+:root{--bg:#141110;--panel:#1e1916;--line:#352c26;--text:#f1e8de;--mute:#a99a8b;--acc:#e8a948;--ok:#7fc29b;--bad:#e5806f;--blue:#8fb8d8;--hdr:rgba(20,17,16,.94);--pop:#2a221d;--okbg:#1f2d25;--badbg:#33201c;--btn:#1a1209;--shade:#000a;--ovl:#000b;--hl:rgba(232,169,72,.15);color-scheme:dark}
+:root[data-theme=light]{--bg:#f6f0e8;--panel:#fffaf3;--line:#e0d3c3;--text:#2a211a;--mute:#6e5f51;--acc:#9a5b0a;--ok:#2f7d52;--bad:#b2432f;--blue:#2c6a94;--hdr:rgba(246,240,232,.94);--pop:#fffaf3;--okbg:#e4f2ea;--badbg:#f8e3de;--btn:#fffaf3;--shade:#4a3a2a44;--ovl:#2a211a99;--hl:rgba(154,91,10,.12);color-scheme:light}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:18px/1.7 Georgia,"Iowan Old Style",serif;min-height:100vh}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+header{position:sticky;top:0;z-index:20;background:var(--hdr);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;gap:6px;justify-content:center;align-items:center;flex-wrap:wrap;padding:10px}
+.theme{background:none;border:1px solid var(--line);border-radius:10px;padding:8px 12px;font:600 15px system-ui,sans-serif;color:var(--mute);margin-left:6px}
+.theme:hover{border-color:var(--acc);color:var(--acc)}
+.tab{background:none;border:1px solid transparent;border-radius:10px;padding:8px 18px;font:600 16px system-ui,sans-serif;color:var(--mute)}
+.tab[aria-selected=true]{background:var(--panel);border-color:var(--acc);color:var(--acc)}
+main{max-width:860px;margin:0 auto;padding:28px 18px 60px}
+h1{font-size:clamp(26px,5vw,38px);line-height:1.2;margin-bottom:6px}
+.sub{color:var(--mute);font:15px system-ui,sans-serif;margin-bottom:24px}
+section{display:none}section.on{display:block}
+.story{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--acc);border-radius:10px;padding:18px 22px;margin-bottom:16px}
+.story h2{font:600 15px system-ui,sans-serif;color:var(--mute);margin-bottom:6px}
+.pv{color:var(--acc);font-weight:700;border-bottom:1.5px dashed var(--acc);background:none;border-top:0;border-inline:0;padding:0;cursor:pointer}
+.pv:hover{background:var(--hl)}
+#pop{position:fixed;z-index:50;width:min(340px,calc(100vw - 24px));background:var(--pop);border:1px solid var(--acc);border-radius:12px;padding:16px;font:15px/1.5 system-ui,sans-serif;box-shadow:0 12px 40px var(--shade);display:none}
+#pop h3{font:700 20px Georgia,serif;color:var(--acc);display:flex;justify-content:space-between;align-items:center;gap:8px}
+#pop p{margin-top:8px}#pop b{color:var(--blue)}
+.btn{background:var(--acc);color:var(--btn);border:0;border-radius:10px;padding:10px 20px;font:700 16px system-ui,sans-serif}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--text)}
+.sp{background:none;border:1px solid var(--line);border-radius:8px;padding:2px 10px;font-size:14px}
+.bar{display:flex;justify-content:space-between;font:600 15px system-ui,sans-serif;color:var(--mute);margin-bottom:14px}
+.prog{height:4px;background:var(--line);border-radius:4px;margin-bottom:22px}.prog i{display:block;height:100%;background:var(--acc);border-radius:4px;transition:width .3s}
+.q{font-size:clamp(20px,3.4vw,26px);line-height:1.5;margin-bottom:20px}
+.q .gap{display:inline-block;min-width:110px;border-bottom:2px solid var(--acc);text-align:center;color:var(--acc)}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font:17px system-ui,sans-serif}
+.opt:hover:not(:disabled){border-color:var(--acc)}
+.opt.ok{border-color:var(--ok);background:var(--okbg)}.opt.bad{border-color:var(--bad);background:var(--badbg)}
+.fb{margin-top:16px;padding:14px 18px;border-radius:10px;background:var(--panel);border:1px solid var(--line);font:16px/1.6 system-ui,sans-serif;display:none}
+.fb strong.ok{color:var(--ok)}.fb strong.bad{color:var(--bad)}
+.end{text-align:center;padding:30px 0}.end .big{font-size:64px;color:var(--acc);line-height:1}
+.wheelbox{display:flex;flex-direction:column;align-items:center;gap:22px}
+.wrap{position:relative;width:min(440px,90vw);aspect-ratio:1}
+.wrap canvas{width:100%;height:100%;transition:transform 4.2s cubic-bezier(.12,.7,.1,1)}
+.ptr{position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:0;height:0;border:14px solid transparent;border-top:28px solid var(--text);z-index:2}
+.hub{position:absolute;inset:50%;width:60px;height:60px;margin:-30px;border-radius:50%;background:var(--bg);border:3px solid var(--acc)}
+.big-btn{font-size:22px;padding:14px 48px}
+.big-btn:disabled{opacity:.5}
+.used{color:var(--mute);font:14px system-ui,sans-serif;text-align:center}
+.modal{position:fixed;inset:0;background:var(--ovl);display:none;align-items:center;justify-content:center;z-index:60;padding:16px}
+.modal.on{display:flex}
+.card{background:var(--panel);border:1px solid var(--acc);border-radius:16px;padding:28px;max-width:520px;width:100%;text-align:center}
+.card h2{font-size:clamp(30px,7vw,46px);color:var(--acc);line-height:1.1;margin-bottom:6px}
+.card .es{color:var(--mute);font:16px system-ui,sans-serif;margin-bottom:16px}
+.chal{background:var(--bg);border-radius:10px;padding:14px;font:17px/1.5 system-ui,sans-serif;margin-bottom:20px;text-align:left}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+@media(prefers-reduced-motion:reduce){.wrap canvas{transition:none}}
+.g{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 20px;margin-bottom:12px}
+.g h2{font-size:21px;margin-bottom:2px}.g .vs{color:var(--acc);font:600 15px system-ui,sans-serif;margin-bottom:8px}
+.g p{font:16px/1.6 system-ui,sans-serif}.g .ex{color:var(--mute);font-style:italic;margin-top:6px}
+.gh{font-size:24px;margin:30px 0 12px}
+#find{width:100%;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;color:var(--text);font:16px system-ui,sans-serif;margin-bottom:12px}
+details.dv{border-bottom:1px solid var(--line);padding:10px 4px;font:16px/1.6 system-ui,sans-serif}
+details.dv summary{cursor:pointer;font:700 19px Georgia,serif}details.dv summary span{color:var(--mute);font:15px system-ui,sans-serif;margin-left:10px}
+details.dv div{padding:8px 0 4px 4px}
+strong.ok{color:var(--ok)}strong.bad{color:var(--bad)}.l{text-align:left}.card{max-height:92vh;overflow:auto}
+.ctx{color:var(--mute);font:15px/1.5 system-ui,sans-serif;margin-bottom:8px}
+</style>
+</head>
+<body>
+<header role="tablist">
+  <button class="tab" role="tab" data-t="read" aria-selected="true">📖 Lectura</button>
+  <button class="tab" role="tab" data-t="guide" aria-selected="false">📚 Guía</button>
+  <button class="tab" role="tab" data-t="quiz" aria-selected="false">🎯 Quiz</button>
+  <button class="tab" role="tab" data-t="wheel" aria-selected="false">🎡 Ruleta</button>
+  <button class="theme" id="theme" aria-label="Cambiar entre modo oscuro y claro"></button>
+</header>
+<main>
+<section id="read" class="on">
+  <h1>Veintidós historias, cuarenta phrasal verbs</h1>
+  <p class="sub">Toca cualquier verbo resaltado para ver su significado, cuándo usarlo y su pronunciación.</p>
+  <div id="stories"></div>
+</section>
+<section id="guide"></section>
+<section id="quiz">
+  <h1>Ruleta de situaciones</h1>
+  <p class="sub">Gira para elegir una categoría. Saldrá una situación y debes escoger el phrasal verb más natural.</p>
+  <div class="wheelbox">
+    <div class="wrap"><div class="ptr"></div><canvas id="cv2" width="800" height="800"></canvas><div class="hub"></div></div>
+    <button class="btn big-btn" id="spin2">Girar</button>
+    <p class="used" id="qinfo"></p>
+    <button class="btn ghost" id="reset2">Reiniciar quiz</button>
+  </div>
+</section>
+<section id="wheel">
+  <h1>¿A quién le toca?</h1>
+  <p class="sub">Gira la ruleta: el estudiante elige el significado del verbo que salga y luego recibe un reto.</p>
+  <div class="wheelbox">
+    <div class="wrap"><div class="ptr"></div><canvas id="cv" width="800" height="800"></canvas><div class="hub"></div></div>
+    <button class="btn big-btn" id="spin">Girar</button>
+    <p class="used" id="usedinfo"></p>
+    <button class="btn ghost" id="reset">Reiniciar ruleta</button>
+  </div>
+</section>
+</main>
+<div id="pop" role="dialog"></div>
+<div class="modal" id="modal"><div class="card" id="card"></div></div>
+
+<script>
+const PV=[
+{k:"figure out",es:"resolver, descifrar",en:"to understand or solve something by thinking",use:"Muy natural en conversación. Alternativa formal: 'determine' o 'work out'.",ex:"I couldn't figure out the new software.",ch:"Cuenta una experiencia personal usando 'figure out'."},
+{k:"come up with",es:"idear, proponer",en:"to think of an idea, plan or answer",use:"Ideal para ideas y soluciones. Más formal: 'devise' o 'propose'.",ex:"She came up with a great idea.",ch:"Di una solución creativa a un problema usando 'come up with'."},
+{k:"end up",es:"terminar (en una situación)",en:"to finally be in a situation you did not plan",use:"Para resultados inesperados. Va con -ing o con lugar: 'end up working', 'end up in Cali'.",ex:"We ended up staying home.",ch:"Cuenta un plan que salió distinto y cómo 'ended up'."},
+{k:"run into",es:"toparse con, encontrarse",en:"to meet someone or find a problem by chance",use:"Informal y cotidiano. Alternativa: 'encounter' (formal).",ex:"I ran into my old boss at the mall.",ch:"¿A quién te encontraste por casualidad hace poco? Usa 'run into'."},
+{k:"point out",es:"señalar, hacer notar",en:"to show or mention something important",use:"Útil en reuniones y clases. Más formal: 'indicate' o 'highlight'.",ex:"He pointed out a mistake in the report.",ch:"Reemplaza 'indicate' por 'point out' en una frase sobre tu trabajo."},
+{k:"set up",es:"configurar, organizar, crear",en:"to arrange, create or prepare something",use:"Sirve para reuniones, equipos y empresas. Formal: 'establish' o 'arrange'.",ex:"Can you set up a meeting for Monday?",ch:"Describe algo que hayas 'set up' (una cuenta, una reunión, un negocio)."},
+{k:"turn out",es:"resultar (ser)",en:"to be discovered as a final result",use:"Para finales sorpresivos. Estructura: 'It turned out that…' o 'turned out to be…'.",ex:"The test turned out to be easy.",ch:"Cuenta algo que 'turned out' mejor o peor de lo esperado."},
+{k:"carry out",es:"llevar a cabo, ejecutar",en:"to do and complete a task or plan",use:"Tono más formal que 'do'. Común en trabajo y estudios: 'carry out a survey'.",ex:"They carried out the experiment last week.",ch:"Reemplaza 'do' por 'carry out' en una frase sobre un proyecto."},
+{k:"call off",es:"cancelar, suspender",en:"to cancel something that was planned",use:"Informal y directo para eventos. Formal: 'cancel'. 'Cancel' sirve para todo; 'call off' suena más a evento.",ex:"They called off the match because of rain.",ch:"¿Qué evento se canceló por imprevistos? Usa 'call off'."},
+{k:"bring up",es:"mencionar, sacar un tema",en:"to start talking about a topic",use:"Para introducir temas, a veces delicados. Formal: 'raise' o 'mention'.",ex:"Don't bring up politics at dinner.",ch:"Di un tema que prefieres no 'bring up' en una cena familiar."},
+{k:"look into",es:"investigar, indagar",en:"to examine or investigate a problem",use:"Muy usado en trabajo. Promete acción sin ser tan dramático: 'We'll look into it'.",ex:"I'll look into the billing error.",ch:"Responde a un cliente que reclama usando 'look into'."},
+{k:"deal with",es:"lidiar con, ocuparse de",en:"to handle a problem or a person",use:"Neutro y versátil. Más formal: 'address' o 'handle'.",ex:"I have to deal with a lot of emails.",ch:"¿Con qué situación difícil tuviste que 'deal with'? Cuéntala."},
+{k:"find out",es:"enterarse, descubrir",en:"to discover a fact or piece of information",use:"Para obtener datos. 'Find out' = informarse; 'discover' suena más científico.",ex:"I found out the store closes at six.",ch:"Cuenta algo que 'found out' recientemente."},
+{k:"give up",es:"rendirse, dejar de",en:"to stop trying, or stop doing a habit",use:"Para rendirse o dejar hábitos: 'give up smoking'. Formal: 'abandon' o 'quit'.",ex:"Don't give up on your English!",ch:"Da un consejo a alguien que quiere 'give up' con su inglés."},
+{k:"put off",es:"posponer, aplazar",en:"to delay something until later",use:"Informal, para tareas y citas. Formal: 'postpone'. 'Put off' puede sonar a procrastinación.",ex:"I keep putting off going to the dentist.",ch:"¿Qué cosas sueles 'put off'? Cuéntalo con humor."},
+{k:"pick up",es:"recoger; aprender sin esfuerzo",en:"to collect someone/something, or learn casually",use:"Doble uso: 'pick up the kids' o 'pick up a language'. Formal: 'collect' / 'acquire'.",ex:"She picked up Italian while living in Rome.",ch:"Di algo que hayas 'picked up' (un hábito, un idioma) sin querer."},
+{k:"come up",es:"surgir (un imprevisto)",en:"to happen unexpectedly, usually a problem or task",use:"Ideal para excusas y cambios de plan: 'Something came up'. No lo confundas con 'come up with' (idear).",ex:"Sorry, something came up at work."},
+{k:"follow up",es:"dar seguimiento",en:"to contact someone again to continue a matter",use:"Muy común en correos de trabajo: 'I'm following up on my email'. Tono neutro-formal.",ex:"I'll follow up with the client on Friday."},
+{k:"keep on",es:"seguir, continuar",en:"to continue doing something without stopping",use:"Va con -ing: 'keep on trying'. Más enfático que 'continue'; es lo opuesto a 'give up'.",ex:"Keep on practicing and you will improve."},
+{k:"cut down on",es:"reducir (consumo)",en:"to consume or do less of something",use:"Para hábitos: azúcar, gastos, café. Formal: 'reduce'.",ex:"I'm trying to cut down on sugar."},
+{k:"put up with",es:"tolerar, aguantar",en:"to accept something annoying without complaining",use:"'Deal with' es manejar un problema; 'put up with' es soportarlo sin poder cambiarlo.",ex:"I can't put up with this noise anymore."},
+{k:"get along with",es:"llevarse bien con",en:"to have a good relationship with someone",use:"Para relaciones personales y de equipo: 'We get along well'.",ex:"I get along with all my coworkers."},
+{k:"get over",es:"superar (algo difícil)",en:"to recover from an illness, shock or sad event",use:"Para enfermedades y rupturas. Formal: 'recover from'.",ex:"It took her months to get over the flu."},
+{k:"take over",es:"asumir el mando",en:"to take control or responsibility from someone",use:"Para cargos, tareas y empresas. Formal: 'assume'.",ex:"Maria will take over the project next month."},
+{k:"take off",es:"despegar; quitarse",en:"to leave the ground (plane), remove clothes, or grow fast",use:"Tres usos comunes: aviones, ropa y negocios que despegan.",ex:"The plane took off ten minutes late."},
+{k:"break down",es:"averiarse; derrumbarse",en:"to stop working (machine) or lose emotional control",use:"Para carros y máquinas: 'my car broke down'. También para colapsos emocionales.",ex:"Our car broke down on the highway."},
+{k:"work out",es:"hacer ejercicio; solucionarse",en:"to exercise, or to end well after a problem",use:"Dos usos: 'I work out daily' y 'Things will work out'. No es 'figure out' (resolver pensando).",ex:"Don't worry, everything will work out."},
+{k:"look forward to",es:"esperar con ilusión",en:"to feel happy about something that will happen",use:"Después de 'to' va -ing o sustantivo: 'look forward to seeing you'. Común en correos.",ex:"I look forward to meeting you."},
+{k:"look after",es:"cuidar",en:"to take care of a person, pet or thing",use:"Cotidiano para niños, mascotas y casas. Formal: 'care for'.",ex:"Can you look after my dog this weekend?"},
+{k:"look up",es:"buscar (un dato)",en:"to search for information in a book or online",use:"Para diccionarios, Google y listas. 'Look into' implica investigar a fondo.",ex:"I looked up the word in the dictionary."},
+{k:"check in",es:"registrarse",en:"to register on arrival at a hotel or airport",use:"Hoteles y aeropuertos. Lo contrario: 'check out'.",ex:"We checked in at the hotel at noon."},
+{k:"fill out",es:"rellenar (un formulario)",en:"to write information on a form",use:"Para formularios y encuestas. También se dice 'fill in'.",ex:"Please fill out this form."},
+{k:"hand in",es:"entregar (un trabajo)",en:"to give work to a teacher or boss",use:"Para tareas y documentos. Formal: 'submit'.",ex:"Students must hand in the essay on Monday."},
+{k:"catch up",es:"ponerse al día",en:"to reach the same level, or share recent news",use:"'Let's catch up' = ponernos al día con noticias. 'Catch up on work' = recuperar trabajo atrasado.",ex:"Let's have coffee and catch up."},
+{k:"sign up",es:"inscribirse",en:"to join a course, service or list",use:"Cursos, apps y gimnasios. Formal: 'enroll' o 'register'.",ex:"I signed up for an English course."},
+{k:"show up",es:"aparecer, presentarse",en:"to arrive at a place, often unexpectedly",use:"Informal. 'Didn't show up' = no se presentó. Formal: 'arrive' o 'attend'.",ex:"He didn't show up to the meeting."},
+{k:"run out of",es:"quedarse sin",en:"to use all of something and have none left",use:"Siempre lleva objeto: 'run out of time/money'. 'Run out' sin 'of' = agotarse.",ex:"We ran out of milk this morning."},
+{k:"go over",es:"repasar paso a paso",en:"to review something carefully",use:"Para revisar documentos o explicaciones. Formal: 'review'.",ex:"Let's go over the plan once more."},
+{k:"turn down",es:"rechazar",en:"to say no to an offer or request",use:"Neutro para ofertas e invitaciones. Formal: 'decline'. También significa bajar el volumen.",ex:"She turned down the job offer."},
+{k:"back up",es:"respaldar; apoyar",en:"to save a copy of files, or support someone",use:"Tecnología y apoyo en argumentos: 'back up your files', 'back me up'.",ex:"Remember to back up your files."}
+];
+const STORIES=[
+["Lunes en la oficina","Monday started badly. My laptop crashed just before an important presentation, and I couldn't <v>figure out</v> what was wrong. I decided to <v>look into</v> the problem myself, but nothing worked. Our team leader <v>pointed out</v> that a recent update was probably the cause.<br><br>Meanwhile, an angry client was waiting. I had to <v>set up</v> a video call from my phone and <v>deal with</v> his complaints calmly. I <v>came up with</v> a quick solution: I shared my screen from a colleague's computer. In the end the meeting <v>turned out</v> better than I expected, and the client even said thank you."],
+["Un plan que cambió","We had planned a picnic by the river for weeks, but on Saturday morning it started to rain. We <v>called off</v> the plan and, without any other idea, we <v>ended up</v> in a small café downtown.<br><br>While we were ordering coffee, I <v>ran into</v> an old friend I hadn't seen in years. It <v>turned out</v> that she had just <v>picked up</v> a new job in our city and wanted to meet people. We talked for three hours, and my best weekend of the year began with a cancelled picnic."],
+["Una reunión de equipo","Ana <v>came up with</v> a smart idea to reduce costs: moving two weekly meetings online. Luis agreed but wanted to <v>carry out</v> a small test first. Then someone <v>brought up</v> the budget, and the room went quiet.<br><br>The manager looked at everyone and said, \"We shouldn't <v>put off</v> this decision any longer.\" She asked Luis to <v>go over</v> the numbers once more and to <v>follow up</v> with finance by Friday. Before leaving, Ana <v>pointed out</v> that everyone felt the plan could really <v>take off</v>."],
+["Aprender inglés","At first I wanted to <v>give up</v>. Every class felt too fast, and I couldn't understand the series I watched. Then I <v>found out</v> that using subtitles in English helps a lot, so I <v>kept on</v> practicing every night.<br><br>I also learned to <v>look up</v> new words and write them in a notebook. After a few months I started to <v>pick up</v> expressions without trying, and last week I <v>signed up</v> for a conversation club. I really <v>look forward to</v> speaking with new people."],
+["Vuelo a Cartagena","We <v>checked in</v> two hours early, but the airline had <v>run out of</v> window seats. I <v>filled out</v> a customs form and <v>looked forward to</v> the beach the whole time. When the plane <v>took off</v>, I finally relaxed."],
+["El vecino ruidoso","I used to <v>get along with</v> my neighbor, but I couldn't <v>put up with</v> his loud music anymore. I <v>brought up</v> the problem politely, he apologized, and everything <v>worked out</v>."],
+["Nuevos hábitos","I decided to <v>cut down on</v> sugar and <v>sign up</v> for a gym. At first I wanted to <v>give up</v>, but I <v>kept on</v> going. Now I <v>work out</v> every morning."],
+["Primera semana en la universidad","I <v>signed up</v> for three classes and <v>filled out</v> a dozen forms. I <v>handed in</v> my documents and <v>ran into</v> a classmate who helped me <v>catch up</v> on the lessons I had missed."],
+["Un fin de semana complicado","Our car <v>broke down</v> on the way to the beach, so we <v>called off</v> the trip. It <v>turned out</v> that we had <v>run out of</v> oil. We <v>ended up</v> having dinner at a garage café."],
+["Nueva gerente","When our manager left, Sofia <v>took over</v> the team. She <v>went over</v> the plan with everyone, <v>looked into</v> the budget and <v>followed up</v> with each client. She even <v>turned down</v> an unrealistic request."],
+["La cita que no llegó","We waited for an hour, but he never <v>showed up</v>. Something must have <v>come up</v>. I tried to <v>get over</v> my anger, and the next day we <v>caught up</v> over coffee."],
+["Mi laptop y el respaldo","My laptop stopped working and I lost many files. Now I always <v>back up</v> my documents. When I need a tutorial, I <v>look up</v> the steps online and <v>figure out</v> the rest myself."],
+["Pidiendo un ascenso","I <v>came up with</v> a plan to improve sales and <v>pointed out</v> the results at the meeting. My boss said she would <v>look into</v> a promotion. I really <v>look forward to</v> her answer."],
+["Dos amigas","Laura and I hadn't seen each other for years, so we <v>caught up</v> over lunch. Her new bakery <v>took off</v> quickly, and she even had to <v>put off</v> her vacation twice. She asked me to <v>look after</v> her dog when she finally travels."],
+["Mudanza de apartamento","Last month I moved to a new apartment, and nothing went as planned. The movers <v>showed up</v> three hours late, so I had to <v>put off</v> a lunch with my family. While carrying boxes, we realized we had <v>run out of</v> tape, so I went to buy more. At the store I <v>ran into</v> my new neighbor, Carla, who offered to <v>look after</v> my cat while I finished unpacking.<br><br>That night she helped me <v>set up</v> the Wi-Fi and we <v>caught up</v> over pizza. Now we <v>get along with</v> each other like old friends."],
+["Día de entrevista","On the day of my job interview, my alarm didn't ring and I woke up late. I rushed to the office, <v>checked in</v> at reception and <v>filled out</v> a short form with my hands shaking. I tried to <v>get over</v> my nerves by breathing slowly.<br><br>The interviewer asked how I would <v>deal with</v> a difficult client, and I explained my plan step by step. She said she would <v>look into</v> my references and <v>follow up</v> by email. Two days later she offered me the job, and of course I didn't <v>turn down</v> the offer."],
+["Fin de semana en familia","My family and I planned a trip to the coast. My sister <v>signed up</v> for a surfing class, my father wanted to <v>carry out</v> his plan to fish all day, and I just wanted to rest. On Saturday our car <v>broke down</v> on the road, and we had to wait two hours.<br><br>Instead of arguing, we <v>kept on</v> joking and played music. A mechanic finally <v>showed up</v> and fixed it. We <v>ended up</v> arriving at night, but it <v>turned out</v> to be one of the most fun trips we have ever had."],
+["Mi primer proyecto freelance","When I started working as a freelancer, I had to <v>set up</v> my own business account and <v>fill out</v> many tax forms. My first client asked me to <v>take over</v> a website that another designer had left unfinished. I <v>went over</v> the files and <v>found out</v> that half of the pages had errors.<br><br>I <v>came up with</v> a plan, worked late for two weeks, and <v>handed in</v> the final version on time. I also learned to always <v>back up</v> my work, because one night my computer <v>broke down</v> and I almost lost everything."],
+["Salud y rutina","For years I ate too much fast food. My doctor told me to <v>cut down on</v> fried food and sugar, and to <v>work out</v> three times a week. After two days I wanted to <v>give up</v>, but my friend Marcos <v>pointed out</v> that every small change counts.<br><br>I <v>signed up</v> for a running group, and slowly I <v>got over</v> my fear of exercise. Six months later, I can <v>keep on</v> running for an hour without stopping, and my doctor is delighted."],
+["Una presentación en la universidad","Professor Reyes asked us to <v>hand in</v> a research project and present it to the class. My group needed a topic, so I <v>came up with</v> the idea of studying how young people learn languages online. We <v>carried out</v> a survey of fifty students and <v>looked up</v> several articles to support our results.<br><br>During the presentation a classmate <v>brought up</v> a difficult question, and I had to think fast. I <v>pointed out</v> the limits of our survey, and the professor smiled. It <v>turned out</v> that she liked our honesty more than a perfect answer."],
+["Planes de verano","Every year I <v>look forward to</v> summer, but this time I had to <v>put off</v> my vacation because of a big project at work. My boss asked me to <v>take over</v> a team after a colleague left, and I also had to <v>deal with</v> two difficult clients.<br><br>I <v>kept on</v> working, and little by little everything <v>worked out</v>. In August I finally <v>checked in</v> at a small hotel by the sea and <v>caught up</v> on all the sleep I had lost."],
+["La fiesta sorpresa","We wanted to organize a surprise party for Laura. Daniel <v>came up with</v> the idea, and I offered to <v>set up</v> the room. We almost had to <v>call off</v> the party when we <v>ran out of</v> time and food on Friday afternoon. Luckily, our neighbors <v>showed up</v> early with snacks and helped us.<br><br>When Laura arrived, everyone shouted 'Surprise!' and she cried with joy. Later she told me that she had <v>found out</v> about it two days before but pretended not to know."]
+];
+const QZ=[
+[0,"Tu jefe te pide revisar un error de facturación inesperado.","Don't worry, I'll ___ the billing error today.","look into","call off","give up","take off","'Look into' = investigar un problema; promete acción sin ser dramático."],
+[0,"Escribes a un cliente que no ha respondido tu correo anterior.","Hi Sam, I'm writing to ___ on my previous email.","follow up","back up","break down","turn down","'Follow up on' = dar seguimiento; es muy común en correos de trabajo."],
+[0,"Una colega sale de licencia y alguien debe asumir sus proyectos.","Daniel will ___ her projects while she is away.","take over","take off","check in","fill out","'Take over' = asumir la responsabilidad. 'Take off' es despegar o quitarse."],
+[0,"En una reunión notas un error que nadie había visto.","I'd like to ___ a small mistake in the numbers.","point out","run out of","get over","sign up","'Point out' = señalar algo importante que otros no han notado."],
+[0,"Recibes una oferta de empleo que no te conviene.","Thanks, but I decided to ___ the offer.","turn down","check in","look after","keep on","'Turn down' = rechazar una oferta. En contextos formales: 'decline'."],
+[1,"Vas a hacer panqueques y la nevera está vacía.","We can't make pancakes. We ___ eggs.","ran out of","got along with","filled out","checked in","'Run out of' = quedarse sin algo; siempre lleva un objeto."],
+[1,"Tu médico te recomienda comer menos azúcar.","I'm trying to ___ sugar this month.","cut down on","hand in","show up","take off","'Cut down on' = reducir sin eliminar del todo. 'Give up' sería dejarlo por completo."],
+[1,"Un vecino viaja y te pide que te encargues de su perro.","Could you ___ my dog while I'm away?","look after","look up","show up","go over","'Look after' = cuidar a alguien o algo. 'Look up' es buscar un dato."],
+[1,"No conoces una palabra y quieres su significado.","Let me ___ the word online.","look up","look after","take over","turn down","'Look up' = buscar un dato puntual en un diccionario o en Internet."],
+[1,"Tu carro deja de funcionar en plena autopista.","Our car ___ on the highway, and we had to call a tow truck.","broke down","took over","signed up","caught up","'Break down' = averiarse (vehículos y máquinas)."],
+[2,"Llegas al hotel y te registras en recepción.","We ___ at the hotel at noon.","checked in","handed in","backed up","turned down","'Check in' = registrarse al llegar a un hotel o aeropuerto."],
+[2,"Describes lo que hizo el avión a la hora de salir.","The plane ___ ten minutes late.","took off","turned down","filled out","looked up","'Take off' = despegar (un avión)."],
+[2,"Antes de entrar al país debes completar un documento.","Please ___ this immigration form.","fill out","look after","give up","show up","'Fill out' = rellenar un formulario."],
+[2,"Te encuentras por casualidad a un excompañero en el aeropuerto.","I ___ an old school friend at the airport!","ran into","ran out of","got over","took off","'Run into' = encontrarse a alguien por casualidad."],
+[2,"Cuentas que esperas con ilusión tu próximo viaje.","I'm really ___ visiting Cartagena next month.","looking forward to","catching up on","putting up with","turning down","'Look forward to' + -ing = esperar algo con ilusión."],
+[3,"Debes entregar el ensayo a tu profesor.","Students must ___ the essay by Monday.","hand in","break down","get over","look after","'Hand in' = entregar un trabajo. Formal: 'submit'."],
+[3,"Te apuntas a un curso nuevo en línea.","I ___ for an online English course last week.","signed up","looked after","got over","took off","'Sign up' = inscribirse. Formal: 'enroll'."],
+[3,"Antes del examen quieren revisar las reglas paso a paso.","Let's ___ the main grammar rules once more.","go over","check in","run out of","sign up","'Go over' = repasar con calma. Formal: 'review'."],
+[3,"Tras una hora pensando, logras resolver un problema de matemáticas.","After an hour, I finally ___ the answer.","figured out","turned down","checked in","got along with","'Figure out' = resolver pensando. 'Find out' sería recibir un dato de alguien."],
+[3,"Faltaste a clases por enfermedad y quieres ponerte al día.","I was sick, so I need to ___ on the lessons.","catch up","back up","show up","look after","'Catch up on' = recuperar lo que te perdiste."],
+[4,"Te llevas muy bien con quienes viven contigo.","I really ___ my roommates.","get along with","hand in","fill out","break down","'Get along with' = llevarse bien con alguien."],
+[4,"La música de los vecinos es insoportable.","I can't ___ this loud music anymore!","put up with","look up","hand in","check in","'Put up with' = tolerar algo molesto. 'Deal with' es ocuparse de un problema."],
+[4,"Tu amiga tarda meses en recuperarse de una ruptura.","It took her months to ___ the breakup.","get over","check in","fill out","run out of","'Get over' = superar algo difícil (enfermedad, ruptura)."],
+[4,"Quedas con una amiga a la que no ves hace años.","Let's have coffee and ___. It's been ages!","catch up","back up","hand in","run out of","'Let's catch up' = ponernos al día con las novedades."],
+[4,"Esperaste a un amigo una hora y nunca llegó.","We waited for an hour, but he never ___.","showed up","got over","filled out","ran out of","'Show up' = aparecer o presentarse. 'Didn't show up' = no se presentó."],
+[5,"Un evento se suspende del todo por una tormenta.","The organizers ___ the concert because of the storm.","called off","looked after","signed up","kept on","'Call off' = cancelar un evento."],
+[5,"Cambias la fecha de tu cita con el dentista.","I'll ___ my dentist appointment until next week.","put off","call off","give up","hand in","'Put off' = posponer (hay nueva fecha). 'Call off' sería cancelarla del todo."],
+[5,"Un compromiso inesperado te impide asistir.","Sorry, I can't come. Something just ___ at work.","came up","filled out","got over","looked up","'Something came up' = surgió un imprevisto. No lo confundas con 'come up with' (idear)."],
+[5,"Querían hacer senderismo, pero el plan cambió por la lluvia.","We wanted to go hiking, but we ___ at a café.","ended up","ran out of","filled out","looked after","'End up' = terminar en una situación que no planeabas."],
+[5,"Estabas nervioso y el resultado fue mejor de lo esperado.","I was nervous, but the interview ___ to be easy.","turned out","ended up","came up","worked out","'Turn out to be' = resultar ser. Con 'end up' se dice 'ended up being'."]
+];
+const G=[
+["Cancelar o posponer","call off · put off","'Call off' cancela del todo; 'put off' solo cambia la fecha.","They called off the match. / We put off the match until Sunday."],
+["Descubrir, resolver, investigar","find out · figure out · look into · look up","'Find out' = obtener un dato. 'Figure out' = resolver pensando. 'Look into' = investigar a fondo. 'Look up' = buscar un dato puntual.","I found out the price. / I figured out the code. / We'll look into the delay. / Look up the word."],
+["Tres verbos con 'come' y 'bring'","come up · come up with · bring up","'Come up' = surge algo imprevisto. 'Come up with' = idear. 'Bring up' = tú introduces un tema.","Something came up. / She came up with a plan. / He brought up the budget."],
+["Cómo termina algo","end up · turn out · work out","'End up' = terminas en una situación no planeada (+ -ing). 'Turn out' = algo resulta ser (to be / that). 'Work out' = algo se soluciona.","We ended up walking. / It turned out to be easy. / It all worked out."],
+["Hacer y organizar","set up · carry out · follow up · go over","'Set up' = preparar o crear. 'Carry out' = ejecutar. 'Follow up' = dar seguimiento. 'Go over' = repasar.","Set up a meeting. / Carry out the test. / Follow up by email. / Go over the notes."],
+["Dejar, reducir, seguir","give up · cut down on · keep on","'Give up' = rendirse o dejar del todo. 'Cut down on' = reducir sin dejarlo. 'Keep on' = continuar.","Give up smoking. / Cut down on coffee. / Keep on trying."],
+["Lidiar o aguantar","deal with · put up with · get over","'Deal with' = ocuparse de algo. 'Put up with' = tolerarlo. 'Get over' = superarlo.","Deal with a client. / Put up with noise. / Get over a cold."]
+];
+const $=s=>document.querySelector(s);
+const IRR={came:"come",ran:"run",found:"find",gave:"give",got:"get",took:"take",brought:"bring",broke:"break",kept:"keep",caught:"catch",went:"go",dealt:"deal"};
+function findPV(v){const w=v.toLowerCase().split(" "),f=IRR[w[0]]||w[0],t=w.slice(1).join(" ");
+ return PV.find(p=>{const [b,...x]=p.k.split(" ");return x.join(" ")===t&&f.startsWith(b.replace(/[ey]$/,""))})}
+let voices=[];
+function speak(t){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="en-US";u.rate=.9;speechSynthesis.speak(u)}
+/* Theme */
+const root=document.documentElement;
+function setTheme(t,save){
+ root.dataset.theme=t;
+ $("#theme").textContent=t==="light"?"🌙 Oscuro":"☀️ Claro";
+ if(save){try{localStorage.setItem("pv-theme",t)}catch(e){}}
+ if(typeof refresh==="function")refresh();
+}
+let saved=null;try{saved=localStorage.getItem("pv-theme")}catch(e){}
+$("#theme").onclick=()=>setTheme(root.dataset.theme==="light"?"dark":"light",true);
+/* Tabs */
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
+ document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",x===b));
+ document.querySelectorAll("main section").forEach(s=>s.classList.toggle("on",s.id===b.dataset.t));
+ $("#pop").style.display="none";
+ refresh();
+});
+/* Reading */
+$("#stories").innerHTML=STORIES.map(([t,x])=>`<article class="story"><h2>${t}</h2><p>${x.replace(/<v>(.*?)<\/v>/g,(m,v)=>`<button class="pv" data-k="${v}">${v}</button>`)}</p></article>`).join("");
+const pop=$("#pop");
+document.addEventListener("click",e=>{
+ const b=e.target.closest(".pv");
+ if(!b){if(!e.target.closest("#pop"))pop.style.display="none";return}
+ const p=findPV(b.dataset.k);if(!p)return;
+ pop.innerHTML=`<h3>${p.k}<button class="sp" id="say" aria-label="Escuchar">🔊 Escuchar</button></h3>
+ <p><b>EN:</b> ${p.en}</p><p><b>ES:</b> ${p.es}</p><p><b>Uso racional:</b> ${p.use}</p><p><i>“${p.ex}”</i></p>`;
+ pop.style.display="block";
+ const r=b.getBoundingClientRect(),h=pop.offsetHeight;
+ pop.style.left=Math.max(12,Math.min(r.left,innerWidth-pop.offsetWidth-12))+"px";
+ pop.style.top=(r.bottom+h+12<innerHeight?r.bottom+8:Math.max(60,r.top-h-8))+"px";
+ $("#say").onclick=()=>speak(p.k+". "+p.ex);
+});
+addEventListener("scroll",()=>pop.style.display="none",{passive:true});
+/* Guía */
+$("#guide").innerHTML=`<h1>Guía de uso y diferencias</h1><p class="sub">Compara los verbos que más se confunden y consulta el significado y el uso de cada uno.</p>`+G.map(([t,v,d,e])=>`<div class="g"><h2>${t}</h2><div class="vs">${v}</div><p>${d}</p><p class="ex">${e}</p></div>`).join("")+`<h2 class="gh">Diccionario (${PV.length} verbos)</h2><input id="find" type="search" placeholder="Buscar por verbo o significado" aria-label="Buscar"><div id="dict"></div>`;
+function dict(q){q=(q||"").toLowerCase();$("#dict").innerHTML=PV.filter(p=>(p.k+p.es+p.en).toLowerCase().includes(q)).map(p=>`<details class="dv"><summary>${p.k}<span>${p.es}</span></summary><div><p><b>EN:</b> ${p.en}</p><p><b>Uso:</b> ${p.use}</p><p><i>“${p.ex}”</i> <button class="sp" data-say="${p.ex}">🔊</button></p></div></details>`).join("")||'<p class="sub">Sin resultados.</p>'}
+$("#find").oninput=e=>dict(e.target.value);dict();
+$("#dict").onclick=e=>{const b=e.target.closest("[data-say]");if(b)speak(b.dataset.say)};
+/* Ruletas */
+const cols=["#8a5a2b","#5e4a3a","#a0703a","#4a3b30","#7a5530"];
+const shuf=a=>a.map(x=>[Math.random(),x]).sort((p,q)=>p[0]-q[0]).map(x=>x[1]);
+const CATS=["Trabajo","Vida diaria","Viajes","Estudios","Amigos","Imprevistos"];
+const CH=["Crea una oración sobre una experiencia personal usando '{k}'.","Usa '{k}' en una situación de trabajo o estudio.","Hazle una pregunta a un compañero usando '{k}'.","Cuenta algo que te pasó esta semana usando '{k}'.","Explica cuándo usarías '{k}' en vez de una palabra más formal."];
+let used=new Set(),hits=0,tries=0,qd=new Set(),qs=0;
+const left=c=>QZ.map((q,i)=>i).filter(i=>QZ[i][0]===c&&!qd.has(i));
+function mkWheel(id,labels,dead,fs){
+ const cv=$(id);let rot=0;
+ return{
+  draw(){const x=cv.getContext("2d"),n=labels.length,a=2*Math.PI/n,R=400,lt=root.dataset.theme==="light",bg=getComputedStyle(root).getPropertyValue("--bg");
+   x.clearRect(0,0,800,800);
+   labels.forEach((t,i)=>{const d=dead(i);
+    x.beginPath();x.moveTo(R,R);x.arc(R,R,R-6,i*a-Math.PI/2,(i+1)*a-Math.PI/2);x.closePath();
+    x.fillStyle=d?(lt?"#e6dccf":"#241d19"):cols[i%5];x.fill();x.strokeStyle=bg;x.lineWidth=3;x.stroke();
+    x.save();x.translate(R,R);x.rotate(i*a+a/2-Math.PI/2);x.textAlign="right";
+    x.fillStyle=d?(lt?"#9a8b7b":"#6b5d50"):"#f6f0e8";x.font="600 "+fs+"px system-ui,sans-serif";x.fillText(t,R-34,fs/3);x.restore()})},
+  spin(i,done){const a=360/labels.length;rot+=360*5+((360-(i*a+a/2)-rot%360)+360)%360;
+   cv.style.transform=`rotate(${rot}deg)`;setTimeout(done,matchMedia("(prefers-reduced-motion:reduce)").matches?50:4300)}
+ }}
+const RW=mkWheel("#cv",PV.map(p=>p.k),i=>used.has(i),22);
+const QW=mkWheel("#cv2",CATS,c=>!left(c).length,40);
+function refresh(){
+ RW.draw();QW.draw();
+ $("#usedinfo").textContent=`Usados: ${used.size} de ${PV.length} · Aciertos: ${hits} de ${tries}`;
+ $("#spin").disabled=used.size>=PV.length;
+ $("#qinfo").textContent=`Respondidas: ${qd.size} de ${QZ.length} · Puntos: ${qs}`;
+ $("#spin2").disabled=qd.size>=QZ.length}
+function go(btn,W,pool,show){const l=pool();if(!l.length)return;const p=l[Math.floor(Math.random()*l.length)];btn.disabled=true;W.spin(p,()=>{btn.disabled=false;show(p)})}
+$("#spin").onclick=()=>go($("#spin"),RW,()=>PV.map((_,i)=>i).filter(i=>!used.has(i)),showVerb);
+$("#spin2").onclick=()=>go($("#spin2"),QW,()=>CATS.map((_,i)=>i).filter(c=>left(c).length),showQ);
+function open_(){$("#modal").classList.add("on")}
+function close(){$("#modal").classList.remove("on");refresh()}
+$("#modal").onclick=e=>{if(e.target.id==="modal")close()};
+$("#reset").onclick=()=>{used.clear();hits=tries=0;refresh()};
+$("#reset2").onclick=()=>{qd.clear();qs=0;refresh()};
+function showVerb(i){
+ const p=PV[i],o=shuf([i,...shuf(PV.map((_,j)=>j).filter(j=>j!==i)).slice(0,3)]);
+ $("#card").innerHTML=`<h2>${p.k}</h2><p class="es">¿Qué significa?</p><div class="opts">${o.map(j=>`<button class="opt" data-j="${j}">${PV[j].es}</button>`).join("")}</div><div id="rf"></div>`;
+ open_();let done=false;
+ $("#card").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+  if(done)return;done=true;tries++;const ok=+b.dataset.j===i;if(ok)hits++;
+  $("#card").querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(+x.dataset.j===i)x.classList.add("ok");else if(x===b)x.classList.add("bad")});
+  const ch=p.ch||CH[Math.floor(Math.random()*CH.length)].replace("{k}",p.k);
+  $("#rf").innerHTML=`<div class="chal l" style="margin-top:16px"><strong class="${ok?"ok":"bad"}">${ok?"Correcto.":"Casi."}</strong> ${p.en}.<br><i>“${p.ex}”</i><br><br><b>Reto:</b> ${ch}</div><div class="row"><button class="btn ghost" id="ms">🔊 Escuchar</button><button class="btn" id="mu">Marcar como usado</button><button class="btn ghost" id="mc">Cerrar</button></div>`;
+  $("#ms").onclick=()=>speak(p.k+". "+p.ex);$("#mu").onclick=()=>{used.add(i);close()};$("#mc").onclick=close;
+ })}
+function showQ(c){
+ const l=left(c),i=l[Math.floor(Math.random()*l.length)],q=QZ[i],o=shuf(q.slice(3,7));
+ $("#card").innerHTML=`<div class="l"><p class="ctx"><b>${CATS[c]}.</b> ${q[1]}</p><p class="q">${q[2].replace("___",'<span class="gap">&nbsp;</span>')}</p><div class="opts">${o.map(t=>`<button class="opt">${t}</button>`).join("")}</div><div class="fb" id="fb"></div></div>`;
+ open_();let done=false;
+ $("#card").querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+  if(done)return;done=true;const ok=b.textContent===q[3];qd.add(i);if(ok)qs++;
+  $("#card").querySelectorAll(".opt").forEach(x=>{x.disabled=true;if(x.textContent===q[3])x.classList.add("ok");else if(x===b)x.classList.add("bad")});
+  $("#card .gap").textContent=q[3];
+  const fb=$("#fb");fb.style.display="block";
+  fb.innerHTML=`<strong class="${ok?"ok":"bad"}">${ok?"Correcto.":"No es la mejor opción."}</strong> ${q[7]}<br><br><button class="btn" id="nx">Continuar</button>`;
+  $("#nx").onclick=()=>{close();if(qd.size>=QZ.length)endQ()};
+ })}
+function endQ(){
+ $("#card").innerHTML=`<div class="end"><div class="big">${qs}/${QZ.length}</div><p class="sub">${qs>=26?"Excelente decisión en contexto.":qs>=18?"Buen trabajo. Repasa la Guía en lo que fallaste.":"Vuelve a la Guía y prueba otra vez."}</p><button class="btn" id="rs">Reiniciar quiz</button></div>`;
+ open_();$("#rs").onclick=()=>{close();$("#reset2").click()}}
+setTheme(saved==="light"?"light":"dark",false);
+</script>
+</body>
+</html>
